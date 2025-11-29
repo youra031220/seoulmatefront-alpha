@@ -3,10 +3,9 @@
    =========================== */
 
 .landing-root {
-  /* width: 100vw;  ← 이거 지우거나 주석 처리 */
-  width: 100%;        /* ← 이렇게 바꾸기 */
-
+  width: 100vw;              /* 다시 뷰포트 전체 */
   min-height: 100vh;
+
   background:
     linear-gradient(120deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.65)),
     url("./world.svg");
@@ -18,12 +17,10 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Pretendard",
     "Noto Sans KR", sans-serif;
 
-  /* overflow: hidden;  ← 이걸 아래처럼 나눠줘 */
-  overflow-x: hidden;  /* 가로만 숨기기 (혹시 살짝 넘쳐도 스크롤 안 나오게) */
-  overflow-y: auto;    /* 세로는 자연스럽게 스크롤 허용 */
-
+  overflow: hidden;          /* 데스크탑은 예전처럼 */
   display: flex;
 }
+
 
 
 .landing-hero {
@@ -450,38 +447,42 @@
 /* ===========================
    모바일 (<= 768px)
    =========================== */
-
 @media (max-width: 768px) {
+  /* ✅ 모바일에서는 루트 자체를 중앙 정렬 + 스크롤 허용 */
+  .landing-root {
+    width: 100%;            /* 인앱 브라우저에서 잘리는 거 방지 */
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* 히어로 섹션도 가운데로 */
+  .landing-hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* 안쪽 컨테이너: 모바일에서 세로 레이아웃 + 중앙 정렬 */
   .landing-hero-inner {
+    max-width: 420px;
+    margin: 80px auto 40px;
     padding: 24px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
-    margin-top: 0;  /* ← 추가 */
   }
 
-  .hero-greeting-col,
-  .hero-card-col,
-  .hero-right {
-    grid-column: auto;
-    grid-row: auto;
+  /* 인삿말 컬럼 */
+  .hero-greeting-col {
     width: 100%;
-    max-width: 400px;
-  }
-
-  .card {
-    border-radius: 20px;
-    padding: 24px 20px;
-    width: 100%;
-    max-width: 100%;
-    
   }
 
   .hero-greeting {
     justify-content: center;
     align-items: center;
-    
   }
 
   .greeting-carousel-container {
@@ -491,18 +492,47 @@
   .greeting-carousel-item {
     text-align: center;
     font-size: clamp(18px, 4.5vw, 22px);
-    height: 10px;
   }
 
-  .hero-right {
-    justify-content: center;
+  /* ✅ 카드 + 설명 박스를 세로로 쌓고 중앙 정렬 */
+  .hero-middle-row {
     width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
 
+  .hero-card-col,
+  .hero-right {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  /* 가운데 세로 로고 라인은 모바일에서 숨김 */
+  .hero-connector {
+    display: none;
+  }
+
+  /* 카드/설명 박스가 화면 폭 기준으로 딱 중앙에 채워지게 */
+  .card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 20px;
+    padding: 24px 20px;
+  }
+
+  .feature-box,
+  .feature-content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* 아이콘들 줄바꿈 + 중앙 배치 */
   .feature-box {
     flex-direction: column;
     align-items: center;
-    width: 100%;
     height: auto;
   }
 
@@ -515,20 +545,15 @@
     gap: 10px;
   }
 
-  .feature-icon {
-    padding: 8px 10px;
-  }
-
   .feature-icon-label {
     display: none;
   }
 
   .feature-content {
-    max-width: 100%;
-    width: 100%;
     height: auto;
   }
 
+  /* 모바일용 상단 로고/텍스트/슬로건 설정은 너가 이미 해둔 부분 유지 */
   .landing-header {
     position: absolute;
     left: 50%;
@@ -538,19 +563,16 @@
     text-align: center;
     font-size: clamp(20px, 4.5vw, 24px);
     line-height: 1.3;
-    margin-bottom: 24px;  /* ← 아래 여백 추가 */
+    margin-bottom: 24px;
     white-space: nowrap;
-  }
-
-  .landing-logo {
-    height: 24px;
   }
 
   .landing-header-text {
-    font-size: clamp(30px, 4.5vw, 40px);  /* hero-slogan과 동일 */
+    font-size: clamp(30px, 4.5vw, 40px);
     white-space: nowrap;
     text-align: center;
   }
+
   .hero-slogan {
     left: 50%;
     right: auto;
@@ -560,20 +582,8 @@
     font-size: clamp(18px, 4.5vw, 22px);
     line-height: 1.3;
   }
-  .hero-middle-row {
-    grid-column: auto;
-    grid-row: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 400px;
-  }
-
-  .hero-connector {
-    display: none;
-  }
 }
+
 
 /* 💻 데스크탑 수동 위치 조정 */
 @media (min-width: 1024px) {

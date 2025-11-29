@@ -462,12 +462,7 @@
   }
 
   .hero-greeting-col,
-  .hero-card-col {
-    width: 100%;
-    max-width: 400px;
-    display: flex;             /* 추가 */
-    justify-content: center;   /* 추가 → 카드가 가운데로 */
-  }
+  .hero-card-col,
   .hero-right {
     grid-column: auto;
     grid-row: auto;
@@ -480,7 +475,7 @@
     padding: 24px 20px;
     width: 100%;
     max-width: 100%;
-    margin:0 auto;
+    
   }
 
   .hero-greeting {

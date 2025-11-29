@@ -3,7 +3,9 @@
    =========================== */
 
 .landing-root {
-  width: 100vw;
+  /* width: 100vw;  ← 이거 지우거나 주석 처리 */
+  width: 100%;        /* ← 이렇게 바꾸기 */
+
   min-height: 100vh;
   background:
     linear-gradient(120deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.65)),
@@ -15,9 +17,14 @@
   color: #f9fafb;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Pretendard",
     "Noto Sans KR", sans-serif;
-  overflow: hidden;
+
+  /* overflow: hidden;  ← 이걸 아래처럼 나눠줘 */
+  overflow-x: hidden;  /* 가로만 숨기기 (혹시 살짝 넘쳐도 스크롤 안 나오게) */
+  overflow-y: auto;    /* 세로는 자연스럽게 스크롤 허용 */
+
   display: flex;
 }
+
 
 .landing-hero {
   width: 100%;
